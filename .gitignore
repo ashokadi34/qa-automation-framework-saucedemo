@@ -1,0 +1,8 @@
+target/
+screenshots/
+*.log
+*.class
+.idea/
+.vscode/
+test-output/
+extent-report/
