@@ -144,6 +144,6 @@ After execution:
 
 ## 👨‍💻 Author
 
-**Ashok Kumar**
+**Kumar Ashok**
 
 ---
