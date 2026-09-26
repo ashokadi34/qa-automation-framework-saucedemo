@@ -191,9 +191,18 @@ This repository focuses on core SDET automation patterns. It does not currently 
 - Test data management
 - Database validation
 - Selenium Grid or containerized execution
-
+---
+## ⭐ Repository
+If you find this project useful, feel free to explore the implementation and provide feedback.
+```text
+https://github.com/ashokadi34/qa-automation-framework-saucedemo
+```
 ## Author
 
 **Ashok Kumar**
 
 Senior Software Test Engineer | SDET | QA Automation
+
+---
+
+# Thank you!
