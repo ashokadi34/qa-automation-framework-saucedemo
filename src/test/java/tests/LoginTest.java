@@ -1,25 +1,37 @@
 package tests;
 
 import base.BaseTest;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import pages.LoginPage;
 import utils.APIUtils;
-import org.testng.annotations.Test;
+import utils.ConfigReader;
+
+import java.io.IOException;
 
 public class LoginTest extends BaseTest {
 
     @Test
-    public void testLoginWithAPIData() {
+    public void testLoginWithAPIData() throws IOException {
 
         setUp();
 
-        String userId = APIUtils.createUser();
-        System.out.println("Created User: " + userId);
+        try {
+            String userId = APIUtils.createUser();
+            System.out.println("Created User: " + userId);
 
-        driver.get("https://www.saucedemo.com/");
+            ConfigReader configReader = new ConfigReader();
+            driver.get(configReader.getUrl());
 
-        LoginPage lp = new LoginPage(driver);
-        lp.login("standard_user", "secret_sauce");
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.login("standard_user", "secret_sauce");
 
-        tearDown();
+            Assert.assertTrue(
+                    loginPage.isLoginSuccessful(),
+                    "Login failed: SauceDemo inventory page was not displayed."
+            );
+        } finally {
+            tearDown();
+        }
     }
 }

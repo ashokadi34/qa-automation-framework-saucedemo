@@ -1,149 +1,199 @@
-# 🚀 QA Automation Framework - E2E Hybrid (UI + API)
+# QA Automation Framework - Java | Selenium | TestNG | Cucumber | REST Assured
 
-## 📌 Overview
+## Overview
 
-This project is a **scalable end-to-end automation framework** designed for modern web applications.
-It combines **UI automation (Selenium)** and **API testing (REST Assured)** to enable **hybrid testing**, improving reliability and reducing execution time.
+A Java-based UI and API automation framework demonstrating reusable test automation patterns with Selenium WebDriver, TestNG, Cucumber BDD, REST Assured, Page Object Model, Extent Reports, configuration management, and failure screenshots.
 
-The framework is built using **Java + TestNG + Cucumber (BDD)** and follows industry best practices like **Page Object Model (POM)**, **parallel execution**, and **detailed reporting**.
+The project uses SauceDemo as the UI application under test and ReqRes as a sample API for API automation.
 
----
+## Key Features
 
-## 🛠️ Tech Stack
+- Selenium WebDriver UI automation
+- TestNG test execution
+- Cucumber BDD with TestNG integration
+- Page Object Model (POM)
+- REST Assured API utility
+- WebDriver factory
+- Reusable configuration reader
+- Explicit wait utility
+- TestNG listener
+- Extent HTML reporting
+- Failure screenshot capture
+- Maven-based execution
 
-* **Language**: Java
-* **UI Automation**: Selenium WebDriver
-* **Test Framework**: TestNG
-* **BDD**: Cucumber
-* **API Testing**: REST Assured
-* **Build Tool**: Maven
-* **Reporting**: Extent Reports
-* **Version Control**: Git
+## Framework Architecture
 
----
+```text
+TestNG Test / Cucumber Scenario
+              |
+              v
+       Page Object Model
+              |
+              v
+         WebDriver
+              |
+              v
+       SauceDemo UI
 
-## 🧱 Framework Architecture
-
-* **Page Object Model (POM)** for maintainability
-* **Hybrid Framework** (UI + API integration)
-* **Reusable utilities** for waits, screenshots, config
-* **TestNG Listeners** for reporting and logging
-* **Cucumber BDD layer** for readable test scenarios
-
----
-
-## 📁 Project Structure
-
-```
-qa-automation-framework-e2e/
-│── pom.xml
-│── testng.xml
-│── README.md
-│
-├── src/main/java
-│   ├── base            # Base test setup
-│   ├── factory         # WebDriver initialization
-│   ├── pages           # Page Object classes
-│   ├── utils           # Utilities (API, waits, screenshots, reports)
-│
-├── src/test/java
-│   ├── tests           # TestNG test classes
-│   ├── stepDefinitions # Cucumber step definitions
-│   ├── runners         # Test runners
-│
-├── src/test/resources
-│   ├── features        # Cucumber feature files
-│   ├── config.properties
+REST Assured API Utility
+              |
+              v
+           ReqRes
 ```
 
----
+## Project Structure
 
-## 🔥 Key Features
-
-### ✅ Hybrid Testing (UI + API)
-
-* Create test data via API
-* Validate workflows through UI
-
-### ✅ Page Object Model (POM)
-
-* Clean separation of test logic and page actions
-* Improves maintainability and reusability
-
-### ✅ Parallel Execution
-
-* Faster test execution using TestNG
-
-### ✅ Extent Reports
-
-* Detailed HTML reports
-* Step-level logging
-* Screenshot attachment on failure
-
-### ✅ Screenshot Capture
-
-* Automatic screenshots on test failure
-* Helps in debugging issues quickly
-
-### ✅ Configurable Environment
-
-* Easily switch environments using `config.properties`
-
----
-
-## 🧪 Sample Test Flow
-
-1. Create user via API
-2. Launch application
-3. Perform login via UI
-4. Validate successful login
-
----
-
-## ▶️ How to Run Tests
-
-### 🔹 Run via Maven
-
+```text
+qa-automation-framework-saucedemo/
+|
++-- pom.xml
++-- testng.xml
++-- README.md
+|
++-- src/main/java/
+|   +-- base/
+|   +-- factory/
+|   +-- pages/
+|   +-- utils/
+|
++-- src/test/java/
+|   +-- hooks/
+|   +-- runners/
+|   +-- stepDefinitions/
+|   +-- tests/
+|
++-- src/test/resources/
+    +-- config.properties
+    +-- features/
+        +-- login.feature
 ```
+
+## Test Flows
+
+### TestNG UI flow
+
+```text
+LoginTest
+   |
+   +-- Create sample API user using REST Assured
+   |
+   +-- Read application URL from config.properties
+   |
+   +-- Open SauceDemo
+   |
+   +-- Login through LoginPage
+```
+
+The API call is currently a reusable API demonstration; the generated API user ID is logged and is not used as SauceDemo login data.
+
+### Cucumber BDD flow
+
+```text
+login.feature
+      |
+      v
+LoginSteps
+      |
+      v
+Hooks
+      |
+      v
+DriverFactory
+      |
+      v
+LoginPage
+      |
+      v
+SauceDemo
+```
+
+## Technologies
+
+| Technology | Purpose |
+|---|---|
+| Java | Programming language |
+| Selenium WebDriver | UI automation |
+| TestNG | Test execution |
+| Cucumber | BDD scenarios |
+| REST Assured | API automation |
+| Maven | Build and dependency management |
+| Extent Reports | HTML test reporting |
+| Git | Version control |
+
+## Configuration
+
+Configuration is stored in:
+
+```text
+src/test/resources/config.properties
+```
+
+Example:
+
+```properties
+url=https://www.saucedemo.com/
+browser=chrome
+```
+
+The application URL is loaded from the classpath by `ConfigReader`.
+
+## Running the Tests
+
+```bash
 mvn clean test
 ```
 
-### 🔹 Run via TestNG
+The `testng.xml` suite contains both the TestNG UI test and the Cucumber TestNG runner, and registers the Extent Reports listener.
 
-* Execute `testng.xml`
-
----
-
-## 📊 Reports
+## Reports
 
 After execution:
 
-* **Extent Report** → `target/ExtentReport.html`
-* **Screenshots** → `/screenshots/`
+```text
+target/ExtentReport.html
+target/report.html
+```
 
----
+Failure screenshots are stored under:
 
-## 📸 Sample Report Features
+```text
+screenshots/
+```
 
-* Pass/Fail status
-* Error logs
-* Stack trace
-* Screenshot on failure
+## Framework Design Notes
 
----
+### Page Object Model
+`LoginPage` encapsulates SauceDemo login locators and actions.
 
-## 📈 Future Enhancements
+### WebDriver Factory
+`DriverFactory` centralizes Chrome WebDriver creation and browser initialization.
 
-* CI/CD integration (GitHub Actions / Jenkins)
-* Docker + Selenium Grid
-* Advanced logging (Log4j)
-* Retry mechanism for flaky tests
-* Test data management (JSON/DB integration)
+### Cucumber Hooks
+Cucumber `@Before` and `@After` hooks create and close the browser for each scenario.
 
----
+### TestNG Listener
+`TestListener` integrates Extent Reports and captures screenshots when a TestNG test fails.
 
-## 👨‍💻 Author
+### API Utility
+`APIUtils` provides a reusable REST Assured method for creating sample API data against ReqRes.
 
-**Kumar Ashok**
+## Current Scope
 
----
+This repository focuses on core SDET automation patterns. It does not currently claim parallel execution, Selenium Grid, Docker execution, CI/CD integration, or database testing.
+
+## Future Enhancements
+
+- CI/CD integration with GitHub Actions or Jenkins
+- Browser selection through configuration
+- Parallel test execution
+- Retry handling for transient failures
+- API response validation and reusable request specifications
+- Test data management
+- Database validation
+- Selenium Grid or containerized execution
+
+## Author
+
+**Ashok Kumar**
+
+Senior Software Test Engineer | SDET | QA Automation
